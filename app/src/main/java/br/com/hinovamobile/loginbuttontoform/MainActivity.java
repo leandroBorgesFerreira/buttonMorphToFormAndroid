@@ -32,111 +32,115 @@ public class MainActivity extends AppCompatActivity {
     private float deltaX;
     private float deltaY;
 
+    private MorphAnimation morphAnimationLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ViewParent viewParent;
-
-        isPressed = false;
-
-
-
-        final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.form_btn);
-
+        final ViewGroup buttonGroup = (ViewGroup) findViewById(R.id.form_btn);
         final Button buttonInside = (Button) findViewById(R.id.button_inside_group);
+        final View rootView = findViewById(R.id.root_view);
 
         buttonInside.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if(!isPressed) {
-                    isPressed= true;
-
-                    ViewGroup group = (ViewGroup) view.getParent().getParent();
-                    float midX = group.getWidth() / 2;
-                    float midY = group.getHeight() / 2;
-
-                    finalWidth = linearLayout.getWidth() * 1.3;
-                    finalHeigth = linearLayout.getHeight() * 8;
-
-                    //float deltaX = view.getTranslationX() + linearLayout.getWidth()/2 - midX ;
-                    deltaX = 0;
-                    deltaY = view.getTranslationY() + finalHeigth / 2 - midY;
-
-                    ObjectAnimator translateX = ObjectAnimator.ofFloat(linearLayout, "translationX", deltaX);
-                    ObjectAnimator translateY = ObjectAnimator.ofFloat(linearLayout, "translationY", deltaY);
-
-                    ValueAnimator valueAnimatorWidth =
-                            ValueAnimator.ofInt(linearLayout.getWidth(), finalWidth.intValue());
-
-                    valueAnimatorWidth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
-                            layoutParams.width = val;
-                            linearLayout.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                    ValueAnimator valueAnimatorHeight =
-                            ValueAnimator.ofInt(linearLayout.getHeight(), finalHeigth);
-
-                    valueAnimatorHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
-                            layoutParams.height = val;
-                            linearLayout.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                    valueAnimatorHeight.setStartDelay(100);
-
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-
-                    ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(buttonInside,
-                            "alpha",
-                            buttonInside.getAlpha(),
-                            0);
-
-                    alphaAnimator.setDuration(150);
-
-                    animatorSet.playTogether(alphaAnimator, translateX, translateY,
-                            valueAnimatorWidth, valueAnimatorHeight);
-
-                    animatorSet.start();
-                } else{
-                    isPressed = false;
-                    ObjectAnimator translateX = ObjectAnimator.ofFloat(linearLayout, "translationX", -deltaX);
-                    ObjectAnimator translateY = ObjectAnimator.ofFloat(linearLayout, "translationY", -deltaY);
-
-                    finalHeigth = finalHeigth / 8;
-
-                    ValueAnimator valueAnimatorHeight =
-                            ValueAnimator.ofInt(linearLayout.getHeight(), finalHeigth);
-
-                    valueAnimatorHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            int val = (Integer) valueAnimator.getAnimatedValue();
-                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
-                            layoutParams.height = val;
-                            linearLayout.setLayoutParams(layoutParams);
-                        }
-                    });
-
-                    AnimatorSet animatorSet = new AnimatorSet();
-                    animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-
-                    animatorSet.playTogether(translateX, translateY, valueAnimatorHeight);
-
-                    animatorSet.start();
+                if (morphAnimationLogin == null) {
+                    morphAnimationLogin = new MorphAnimation(buttonGroup,
+                            rootView,
+                            buttonGroup.getWidth() * 1.5f,
+                            buttonGroup.getHeight() * 6);
                 }
+
+                morphAnimationLogin.morphIntoForm();
+
+//                if(!isPressed) {
+//                    isPressed= true;
+//
+//                    ViewGroup group = (ViewGroup) view.getParent().getParent();
+//                    float midX = group.getWidth() / 2;
+//                    float midY = group.getHeight() / 2;
+//
+//                    finalWidth = linearLayout.getWidth() * 1.3;
+//                    finalHeigth = linearLayout.getHeight() * 8;
+//
+//                    deltaX = view.getTranslationX() + linearLayout.getWidth()/2 - midX ;
+//                    deltaY = view.getTranslationY() + finalHeigth / 2 - midY;
+//
+//                    ObjectAnimator translateX = ObjectAnimator.ofFloat(linearLayout, "translationX", deltaX);
+//                    ObjectAnimator translateY = ObjectAnimator.ofFloat(linearLayout, "translationY", deltaY);
+//
+//                    ValueAnimator valueAnimatorWidth =
+//                            ValueAnimator.ofInt(linearLayout.getWidth(), finalWidth.intValue());
+//
+//                    valueAnimatorWidth.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                            int val = (Integer) valueAnimator.getAnimatedValue();
+//                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
+//                            layoutParams.width = val;
+//                            linearLayout.setLayoutParams(layoutParams);
+//                        }
+//                    });
+//
+//                    ValueAnimator valueAnimatorHeight =
+//                            ValueAnimator.ofInt(linearLayout.getHeight(), finalHeigth);
+//
+//                    valueAnimatorHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                            int val = (Integer) valueAnimator.getAnimatedValue();
+//                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
+//                            layoutParams.height = val;
+//                            linearLayout.setLayoutParams(layoutParams);
+//                        }
+//                    });
+//
+//                    valueAnimatorHeight.setStartDelay(100);
+//
+//                    AnimatorSet animatorSet = new AnimatorSet();
+//                    animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+//
+//                    ObjectAnimator alphaAnimator = ObjectAnimator.ofFloat(buttonInside,
+//                            "alpha",
+//                            buttonInside.getAlpha(),
+//                            0);
+//
+//                    alphaAnimator.setDuration(150);
+//
+//                    animatorSet.playTogether(alphaAnimator, translateX, translateY,
+//                            valueAnimatorWidth, valueAnimatorHeight);
+//
+//                    animatorSet.start();
+//                } else{
+//                    isPressed = false;
+//                    ObjectAnimator translateX = ObjectAnimator.ofFloat(linearLayout, "translationX", -deltaX);
+//                    ObjectAnimator translateY = ObjectAnimator.ofFloat(linearLayout, "translationY", -deltaY);
+//
+//                    finalHeigth = finalHeigth / 8;
+//
+//                    ValueAnimator valueAnimatorHeight =
+//                            ValueAnimator.ofInt(linearLayout.getHeight(), finalHeigth);
+//
+//                    valueAnimatorHeight.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                            int val = (Integer) valueAnimator.getAnimatedValue();
+//                            ViewGroup.LayoutParams layoutParams = linearLayout.getLayoutParams();
+//                            layoutParams.height = val;
+//                            linearLayout.setLayoutParams(layoutParams);
+//                        }
+//                    });
+//
+//                    AnimatorSet animatorSet = new AnimatorSet();
+//                    animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
+//
+//                    animatorSet.playTogether(translateX, translateY, valueAnimatorHeight);
+//
+//                    animatorSet.start();
+//                }
 
             }
         });
