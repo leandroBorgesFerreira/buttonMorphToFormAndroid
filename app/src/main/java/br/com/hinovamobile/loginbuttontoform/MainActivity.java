@@ -24,55 +24,48 @@ import android.widget.ViewAnimator;
 
 public class MainActivity extends AppCompatActivity {
 
-    private boolean isPressed;
-
-    private float initialWidth;
-    private Double finalWidth;
-
-    private float initialHeigth;
-    private int finalHeigth;
-
-    private float deltaX;
-    private float deltaY;
-
     private MorphAnimation morphAnimationLogin;
+    private MorphAnimation morphAnimationRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final ViewGroup buttonGroup = (ViewGroup) findViewById(R.id.form_btn);
-        final Button buttonInside = (Button) findViewById(R.id.button_inside_group);
+        View loginContainer = findViewById(R.id.form_btn);
+        View registeContainer = findViewById(R.id.form_register);
+
+        Button buttonLogin = (Button) findViewById(R.id.button_inside_group);
+        Button buttonRegister = (Button) findViewById(R.id.button_register);
+
+        ViewGroup loginViews = (ViewGroup) findViewById(R.id.login_views);
+        ViewGroup registeViews = (ViewGroup) findViewById(R.id.register_views);
+
         final FrameLayout rootView = (FrameLayout) findViewById(R.id.root_view);
 
-        buttonInside.setOnClickListener(new View.OnClickListener() {
+        morphAnimationLogin = new MorphAnimation(loginContainer, rootView, loginViews);
+        morphAnimationRegister = new MorphAnimation(registeContainer, rootView, registeViews);
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                if (morphAnimationLogin == null) {
-                    morphAnimationLogin = new MorphAnimation(
-                            MainActivity.this,
-                            buttonGroup,
-                            buttonInside,
-                            rootView,
-                            buttonGroup.getWidth() * 1.6f,
-                            buttonGroup.getHeight() * 6);
-                }
-
                 if (!morphAnimationLogin.isPressed()) {
-//                    morphAnimationLogin.morphIntoForm();
-                    morphAnimationLogin.changeGravity();
+                    morphAnimationLogin.morphIntoForm();
                 } else {
                     morphAnimationLogin.morphIntoButton();
                 }
-
             }
         });
-    }
 
-    public static int convertDpToPixels(float dp, Context context) {
-        int px = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics());
-        return px;
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!morphAnimationRegister.isPressed()) {
+                    morphAnimationRegister.morphIntoForm();
+                } else {
+                    morphAnimationRegister.morphIntoButton();
+                }
+            }
+        });
     }
 }

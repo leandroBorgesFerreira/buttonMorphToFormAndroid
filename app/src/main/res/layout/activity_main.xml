@@ -13,17 +13,16 @@
         android:id="@+id/form_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="start|center_horizontal"
+        android:layout_gravity="start|bottom"
         android:padding="0dp"
         android:layout_margin="20dp"
         app:cardCornerRadius="6dp"
         app:cardElevation="4dp">
 
         <LinearLayout
+            android:id="@+id/login_views"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:orientation="vertical">
 
             <Button
@@ -41,6 +40,8 @@
                 android:hint="your name"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
 
             <EditText
@@ -50,6 +51,8 @@
                 android:hint="your age"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
 
             <EditText
@@ -59,7 +62,90 @@
                 android:hint="phone number"
                 android:layout_marginBottom="5dp"
                 android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_dark"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:text="Ok!"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/form_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:padding="0dp"
+        android:layout_margin="20dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="4dp">
+
+        <LinearLayout
+            android:id="@+id/register_views"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/button_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="REGISTER"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@android:color/transparent"/>
+
+            <EditText
+                android:id="@+id/name_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="your name"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:id="@+id/age_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="your age"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:id="@+id/phone_register"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="phone number"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/background_dark"
+                android:textColor="@android:color/white"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                android:text="Ok!"/>
 
         </LinearLayout>
 
